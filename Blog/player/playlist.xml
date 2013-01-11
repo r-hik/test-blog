@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<playlist version="1" xmlns="http://xspf.org/ns/0/">
+          <title>Playlist Octobre</title>
+          <creator>R-hik</creator>
+          <info>by R-hik</info>
+          <image>player/covers/Tetra.jpg</image>
+
+    <trackList>
+      <track>
+          <title>Down The Road</title>
+          <creator>C2C</creator>
+          <album>Tetra</album>
+          <location>player/son/DTR.mp3</location>
+          <image>player/covers/Tetra.jpg</image>
+        </track>
+        <track>
+          <title>Who Are You</title>
+          <creator>C2C</creator>
+          <album>Tetra</album>
+          <location>player/son/WAY.mp3</location>
+          <image>player/covers/Tetra.jpg</image>
+        </track>
+        <track>
+          <title>Happy</title>
+          <creator>C2C</creator>
+          <album>Tetra</album>
+          <location>player/son/H.mp3</location>
+          <image>player/covers/Tetra.jpg</image>
+        </track>
+        <track>
+          <location>player/son/kroket.mp3</location>
+          <creator>Kanka</creator>
+          <album>Sub.mersion</album>
+          <title>Kroket (feat. Mc Olivia)</title>
+          <annotation>I love this song</annotation>
+          <duration>32000</duration>
+          <image>player/covers/Sub.mersion.jpg</image>
+          <info></info>
+          <link>http://fr.wikipedia.org/wiki/Kanka</link>
+        </track>
+        
+        <track>
+          <location>player/son/myaskunk.mp3</location>
+          <creator>Kanka</creator>
+          <album>Don't Stop Dub</album>
+          <title>Skunky</title>
+          <annotation></annotation>
+          <duration></duration>
+          <image>player/covers/Don't Stop Dub.jpg</image>
+          <info></info>
+          <link></link>
+        </track>
+        
+        <track>
+          <location>player/son/aarevodub2.mp3</location>
+          <creator>Kanka</creator>
+          <album>Dub Communication</album>
+          <title>Dub Is Dub</title>
+          <annotation></annotation>
+          <duration></duration>
+          <image>player/covers/Dub Communication.jpg</image>
+          <info></info>
+          <link><link>
+        </track>
+
+        <track>
+          <title>Croon It</title>
+          <creator>Kanka</creator>
+          <album>Don't Stop Dub</album>
+          <location>player/son/aacroondub.mp3</location>
+          <image>player/covers/Don't Stop Dub.jpg</image>
+        </track>
+
+
+    </trackList>
+</playlist>
