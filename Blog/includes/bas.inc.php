@@ -1,4 +1,15 @@
-﻿ </div>
+﻿ <?php if(isset($_COOKIE['sid']))
+    {
+      $sql  =   "SELECT * FROM connexion WHERE sid='".$_COOKIE['sid']."'";  
+      $result =   mysql_query($sql);
+
+      if(mysql_num_rows($result))
+        {
+          $connecte   =   true;
+          $utilisateur  =   mysql_fetch_array($result);
+        } 
+    } ?>
+ </div>
           
           <nav class="span4">
             <h2>Menu</h2>
@@ -16,8 +27,11 @@
             </form>
             <ul>
                 <li><button class='btn btn-success btn-small' id='menuaccueil' >Accueil</a></li>
-                <li><button class='btn btn-success btn-small' id='menuarticle' >Rédiger un article</a></li>
-                
+                <?php if ($connecte)
+                {
+                echo "<li><button class='btn btn-success btn-small' id='menuarticle' >Rédiger un article</a></li>";
+                }
+                ?>
             </ul>
             <h2>Playlist</h2>
       <object data="player/dewplayer-vinyl.swf" width="303" height="113" name="dewplayer" id="dewplayer" type="application/x-shockwave-flash">
@@ -49,7 +63,7 @@
     });
 
     $('#menuaccueil').click(function() {
-      $('#body').load('index.php#body', function() {
+      $('#body').load('index.php', function() {
       });
     });
   });

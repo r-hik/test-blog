@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.12, created on 2013-01-11 02:06:37
+<?php /* Smarty version Smarty-3.1.12, created on 2013-01-11 13:33:41
          compiled from "templates\index.phtml" */ ?>
 <?php /*%%SmartyHeaderCode:490550ef2ef10936b7-47522127%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '1f07560281418c212564496accb7681386c7b59f' => 
     array (
       0 => 'templates\\index.phtml',
-      1 => 1357869995,
+      1 => 1357911215,
       2 => 'file',
     ),
   ),
@@ -21,10 +21,11 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   array (
     'articles' => 0,
     'article' => 0,
+    'dateFR' => 0,
     'connecte' => 0,
+    'nb_pages' => 0,
     'page' => 0,
     'rech' => 0,
-    'nb_pages' => 0,
     'i' => 0,
     'nextPage' => 0,
   ),
@@ -39,22 +40,27 @@ $_smarty_tpl->tpl_vars['article']->_loop = true;
 ?>
 				<h3><?php echo $_smarty_tpl->tpl_vars['article']->value['titre'];?>
 </h3>
+					<img src="img/<?php echo $_smarty_tpl->tpl_vars['article']->value['titre'];?>
+.jpg">
 					<p><?php echo $_smarty_tpl->tpl_vars['article']->value['texte'];?>
 
 					
 					 </p>
-					 ecrit le : <?php echo $_smarty_tpl->tpl_vars['article']->value['date'];?>
+					 ecrit le : <?php echo $_smarty_tpl->tpl_vars['dateFR']->value;?>
 
 					
 				<?php if (($_smarty_tpl->tpl_vars['connecte']->value)){?>
 					<br><br>
-					<a href="article.php?id=<<?php ?>?php echo $data['id']; ?<?php ?>>" class="btn btn-primary">Modifier</a>
-					<a href="supprimer-article.php?id=<<?php ?>?php echo $data['id']; ?<?php ?>>" class="btn btn-danger"> Supprimer</a>  
+					<a href="article.php?id=<?php echo $_smarty_tpl->tpl_vars['article']->value['id'];?>
+" class="btn btn-primary">Modifier</a>
+					<a href="supprimer-article.php?id=<?php echo $_smarty_tpl->tpl_vars['article']->value['id'];?>
+" class="btn btn-danger"> Supprimer</a>  
 				 
 				<?php }?>
 				
 				<hr>
 			<?php } ?>
+<?php if ($_smarty_tpl->tpl_vars['nb_pages']->value>1){?>
 <div class="pagination" >
 	<ul>
 		<li class="prev <?php if ($_smarty_tpl->tpl_vars['page']->value<=1){?> disabled<?php }?>" >
@@ -82,6 +88,7 @@ $_smarty_tpl->tpl_vars['i']->first = $_smarty_tpl->tpl_vars['i']->iteration == 1
 		</li>
 	</ul>
 </div>
+<?php }?>
 <script src='jquery.js'></script>
 <script>
 	$(function() {

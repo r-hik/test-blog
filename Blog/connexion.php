@@ -14,7 +14,7 @@ if(isset($_COOKIE['sid']))
 		}
 
 	//traitement du formulaire
-	if (isset($_POST["ref"])=='identification')
+	if (isset($_POST["login"])=='identification')
 	{
 		
 		//récuperation des données du formulaire
@@ -70,11 +70,11 @@ if(isset($_COOKIE['sid']))
 			}	
 					
 	}
-	else if(isset($_POST["ref"])=='deconnection')
+	else if(isset($_POST["logout"])=='deconnection')
 	{
 		$sql="UPDATE connexion SET sid='' WHERE sid='".$_COOKIE['sid']."'"; 
 				$requete=mysql_query($sql);
-				header('Locatio:index.php');
+				header('Location:index.php');
 				exit();
 	}
 	if($connecte)
@@ -82,10 +82,11 @@ if(isset($_COOKIE['sid']))
 		$sql="SELECT prenom,nom FROM connexion WHERE sid='".$_COOKIE['sid']."'";
 				$result=mysql_query($sql);
 				$data=mysql_fetch_array($result);
-		echo "<div class='alert alert-success'>
-							Bienvenue ".$data['prenom']." ".$data['nom']."</div>";
-		?><input type="submit" name="valider" value="Se Déconnecter" class="btn-large btn-danger pull-right" style="margin-top:-20px" data-toggle="collapse" data-target=".nav-collapse">
-		<input type="hidden" name="ref" value="deconnection">	<?php
+		echo '<input type="submit" name="valider" value="Se Déconnecter" class="btn-large btn-danger pull-right" style="margin-top:15px" data-toggle="collapse" data-target=".nav-collapse">';
+		echo "<h4>Bienvenue ".$data['prenom']." ".$data['nom']."</h4>";
+		?>
+		<a>Mon compte</a>
+		<input type="hidden" name="logout" value="deconnection">	<?php
 	}
 	else
 	{
@@ -97,7 +98,7 @@ if(isset($_COOKIE['sid']))
 		<h4>identifiant&nbsp<input type="text" name="identif" maxlength="20" class="span2 pull-right" placeholder="Identifiant" style="margin-right:5px;margin-top:-5px;height:20px;width:110px"></h4>
 		<!-- champ de type password limité à 20 caractères-->
 		<h4 style="margin-top:-5px">mot de passe&nbsp<input type="password" name="mdp" maxlength="20" class="span2 pull-right" placeholder="Mot de Passe" style="margin-right:5px;margin-top:-20px;height:20px;width:110px"></h4>
-		<input type="hidden" name="ref" value="identification">	
+		<input type="hidden" name="login" value="identification">	
 		
 		<?php	
 	}	

@@ -55,8 +55,9 @@ while($data = mysql_fetch_array($result))
 	{ //boucle qui fait apparaitre la liste d'article
 			
 		$articles[]= $data;
+		$dateFR=dateFR(strtotime($data['date']));
 	}
-	
+
 $result=mysql_query($pagination);
 $data=mysql_fetch_array($result);
 $totArticles=$data['totArticles'];
@@ -74,7 +75,8 @@ $smarty->assign('nb_pages',$nb_pages);
 $smarty->assign('precPage',$precPage);
 $smarty->assign('nextPage',$nextPage);
 $smarty->assign('totArticles',$totArticles);
-$smarty->assign('rech_encode',$rech_encode);	
+$smarty->assign('rech_encode',$rech_encode);
+$smarty->assign('dateFR',$dateFR)	;
 $smarty->display("templates/index.phtml");
 /*?>
 	<article>
