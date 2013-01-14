@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.12, created on 2013-01-11 13:33:41
+<?php /* Smarty version Smarty-3.1.12, created on 2013-01-13 21:05:43
          compiled from "templates\index.phtml" */ ?>
 <?php /*%%SmartyHeaderCode:490550ef2ef10936b7-47522127%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '1f07560281418c212564496accb7681386c7b59f' => 
     array (
       0 => 'templates\\index.phtml',
-      1 => 1357911215,
+      1 => 1358111134,
       2 => 'file',
     ),
   ),
@@ -40,8 +40,8 @@ $_smarty_tpl->tpl_vars['article']->_loop = true;
 ?>
 				<h3><?php echo $_smarty_tpl->tpl_vars['article']->value['titre'];?>
 </h3>
-					<img src="img/<?php echo $_smarty_tpl->tpl_vars['article']->value['titre'];?>
-.jpg">
+					<img src="img/<?php echo $_smarty_tpl->tpl_vars['article']->value['image'];?>
+">
 					<p><?php echo $_smarty_tpl->tpl_vars['article']->value['texte'];?>
 
 					

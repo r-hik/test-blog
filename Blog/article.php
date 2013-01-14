@@ -8,7 +8,7 @@ include('includes/fonctions.inc.php');
  *************************************************************/
  
 // Constantes
-define('TARGET', 'img/');    // Repertoire cible
+define('TARGET', 'img/');    // Repertoire cible pour l'upload
 define('MAX_SIZE', 500000);    // Taille max en octets du fichier
 define('WIDTH_MAX', 1800);    // Largeur max de l'image en pixels
 define('HEIGHT_MAX', 1800);    // Hauteur max de l'image en pixels
@@ -27,11 +27,11 @@ $nomImage = '';
  *************************************************************/
 if( !is_dir(TARGET) ) {
   if( !mkdir(TARGET, 0755) ) {
-    exit('Erreur : le répertoire cible ne peut-être créé ! Vérifiez que vous diposiez des droits suffisants pour le faire ou créez le manuellement !');
+    exit('Erreur : le répertoire cible ne peut-être créé !');
   }
 }
 ?>
-<form enctype="multipart/form-data" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+<form enctype="multipart/form-data" action="<?php if(isset($id)) echo 'index.php';else echo 'article.php'; ?>" method="post">
 <?php
 //pour la modification
 $id =(int)var_get('id');
@@ -60,6 +60,18 @@ If (isset($_POST['post']))
 			{
 
 		//pour l'ajout 
+				$id=(int)var_post('id');
+				If ($id)
+					{
+						requete_notif("UPDATE articles SET titre='$titre', texte='$texte' WHERE id='$id'",'articles','modifié'); //fonction qui modifie et teste
+					}
+				else
+					{
+						requete_notif("INSERT INTO articles (titre, texte) VALUES ('$titre','$texte')",'articles','ajouté'); //fonction ajoute et teste
+						$sql=mysql_fetch_array(mysql_query("SELECT id FROM articles WHERE titre='$titre' and texte='$texte'"));
+						$id=$sql["id"];
+						$insertID=mysql_query("UPDATE articles SET image='$id.jpg' WHERE id='$id'");
+					}
 				
 				if( !empty($_FILES['fichier']['name']) )
 				  {
@@ -79,11 +91,10 @@ If (isset($_POST['post']))
 				        if(($infosImg[0] <= WIDTH_MAX) && ($infosImg[1] <= HEIGHT_MAX) && (filesize($_FILES['fichier']['tmp_name']) <= MAX_SIZE))
 				        {
 				          // Parcours du tableau d'erreurs
-				          if(isset($_FILES['fichier']['error']) 
-				            && UPLOAD_ERR_OK === $_FILES['fichier']['error'])
+				          if(isset($_FILES['fichier']['error']))
 				          {
 				            // On renomme le fichier
-				            $nomImage = $titre .'.'. $extension;
+				            $nomImage = $id .'.'. $extension;
 				 
 				            // Si c'est OK, on teste l'upload
 				            if(move_uploaded_file($_FILES['fichier']['tmp_name'], TARGET.$nomImage))
@@ -120,16 +131,7 @@ If (isset($_POST['post']))
 				    }
 
 				  }
-				  $id=(int)var_post('id');
-				If ($id)
-					{
-						requete_notif("UPDATE articles SET titre='$titre', texte='$texte' image='$id.jpg' WHERE id='$id'",'articles','modifié'); //fonction qui modifie et teste
-					}
-				else
-					{
-						requete_notif("INSERT INTO articles (titre, texte, image) VALUES ('$titre','$texte',)",'articles','ajouté'); //fonction ajoute et teste
-					
-					}
+				
   
 					?><!--<script type="text/javascript">window.location.href='index.php'</script>-->
 	<?php 
