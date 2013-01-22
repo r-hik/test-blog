@@ -26,10 +26,10 @@
               <input type="submit" value="OK" class="btn">
             </form>
             <ul>
-                <li><button class='btn btn-success btn-small' id='menuaccueil' >Accueil</a></li>
+                <li><a href="index.php" class='btn btn-success btn-small' id='menuaccueil' >Accueil</a></li>
                 <?php if ($connecte)
                 {
-                echo "<li><button class='btn btn-success btn-small' id='menuarticle' >Rédiger un article</a></li>";
+                echo "<li><a href='article.php' class='btn btn-success btn-small' id='menuarticle' >Rédiger un article</a></li>";
                 }
                 ?>
             </ul>
@@ -54,21 +54,6 @@
 
     </div>
 </div>
-<script src="jquery.js"></script>
-<script>
-  $(function() {
-    $('#menuarticle').click(function() {
-      $('#body').load('article.php', function() {
-      });
-    });
-
-    $('#menuaccueil').click(function() {
-      $('#body').load('index.php', function() {
-      });
-    });
-  });
-</script>
-        
       
   </body>
 </html>

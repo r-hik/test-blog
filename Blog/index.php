@@ -1,5 +1,5 @@
 <?php
-require("libs/smarty.class.php"); //On intègre Smarty
+require("libs/Smarty.class.php"); //On intègre Smarty
 //
 include('includes/connexion.inc.php');
 include('includes/haut.inc.php');
@@ -26,7 +26,7 @@ include('includes/notifications.inc.php');
 //
 
 //----------------------Pagination----------------------
-$nbArticles	=	3; //Nombre d'artciles maximum désirés par page
+$nbArticles	=	4; //Nombre d'artciles maximum désirés par page
 $rech 		=	var_get('r'); //Dans le cas d'une recherche on recupère son contenu
 $rech = htmlspecialchars($rech);
 $rech_encode = urlencode($rech);

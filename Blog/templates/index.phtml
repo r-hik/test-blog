@@ -1,22 +1,29 @@
 ﻿<body>
-
+	<ul class="thumbnails">
 {foreach $articles AS $article}
-				<h3>{$article.titre}</h3>
-					<img src="img/{$article.image}">
-					<p>{$article.texte}
+			
+  <li class="span4">
+    <div class="thumbnail" style="position:relative;height: 400">
+				
+
+					<img src="img/vignettes/{$article.image}" class = "img-rounded">
+					<h3>{$article.titre}</h3>
+					<p>{$article.texte}</p>
 					
-					 </p>
-					 ecrit le : {$dateFR}
+					 
+					 <div style="position:absolute;top:330">ecrit le : {$dateFR}</div>
 					
 				{if ( $connecte )}
 					<br><br>
+					<div style="position:absolute;top:370">
 					<a href="article.php?id={$article.id}" class="btn btn-primary">Modifier</a>
 					<a href="supprimer-article.php?id={$article.id}" class="btn btn-danger"> Supprimer</a>  
+				</div>
 				 
 				{/if}
-				
-				<hr>
-			{/foreach}
+				</li>
+				{/foreach}
+					</ul>
 {if $nb_pages gt 1}
 <div class="pagination" >
 	<ul>
@@ -36,20 +43,3 @@
 	</ul>
 </div>
 {/if}
-<script src='jquery.js'></script>
-<script>
-	$(function() {
-    $('#prev').click(function() {
-      $('#body').load('<?php if ($precPage>=1) if($rech) echo "?p=$precPage#body&r=$rech"; else echo "?p=$precPage#body";?>', function() {
-      });
-    });
-
-
-
-    $('#next').click(function() {
-      $('#body').load("<?php  if ($nextPage<=$nb_pages)  if($rech) echo '?p=$nextPage#body&r=$rech'; else echo '?p=$nextPage#body';?>", function() {
-      });
-    });
-  });
-</script>
-
