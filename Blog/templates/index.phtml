@@ -1,40 +1,36 @@
-﻿<body>
-	<ul class="thumbnails">
-{foreach $articles AS $article}
-			
-  <li class="span4">
-    <div class="thumbnail" style="position:relative;height: 400">
+﻿<ul class="thumbnails">
+	<!-- Affichage des articles-->
+	{foreach $articles AS $article}
 				
-
-					<img src="img/vignettes/{$article.image}" class = "img-rounded">
-					<h3>{$article.titre}</h3>
-					<p>{$article.texte}</p>
-					
-					 
-					 <div style="position:absolute;top:330">ecrit le : {$dateFR}</div>
-					
+		<li class="span4">
+		    <div class="thumbnail" style="position:relative;height: 400">
+				<img src="img/vignettes/{$article.image}" class = "img-rounded">
+				<h3>{$article.titre}</h3>
+				<p>{$article.texte}</p>				 
+				<div style="position:absolute;top:330">ecrit le : {$dateFR}</div>
+				
 				{if ( $connecte )}
 					<br><br>
 					<div style="position:absolute;top:370">
-					<a href="article.php?id={$article.id}" class="btn btn-primary">Modifier</a>
-					<a href="supprimer-article.php?id={$article.id}" class="btn btn-danger"> Supprimer</a>  
-				</div>
-				 
+						<a href="article.php?id={$article.id}" class="btn btn-primary">Modifier</a>
+						<a href="supprimer-article.php?id={$article.id}" class="btn btn-danger"> Supprimer</a>  
+					</div>					 
 				{/if}
-				</li>
-				{/foreach}
-					</ul>
+			</div>
+		</li>
+	{/foreach}
+</ul>
 {if $nb_pages gt 1}
 <div class="pagination" >
 	<ul>
 		<li class="prev {if $page<=1} disabled{/if}" >
 			<a id="prev" {if $page gt 1}href="?p={$page-1}{/if}{if $rech}&r={$rech}{/if}">&larr; Précédent</a>
 		</li>
-		 {for $i=1 to $nb_pages}<!-- On boucle jusqu a l'avant dernier page-->
-						<li{if $page==$i } class="active"{/if}>
-							<a  href="?p={$i}{if $rech}&r={$rech}{/if}">{$i}</a>
-						</li>						
-					{/for}
+		{for $i=1 to $nb_pages}<!-- On boucle jusqu a l'avant dernier page-->
+			<li {if $page==$i } class="active"{/if}>
+				<a  href="?p={$i}{if $rech}&r={$rech}{/if}">{$i}</a>
+			</li>						
+		{/for}
 	
 
 		<li class="next {if $nextPage gt $nb_pages} disabled {/if}">

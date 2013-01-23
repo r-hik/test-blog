@@ -70,24 +70,26 @@ if(isset($_COOKIE['sid']))
 			}	
 					
 	}
+	//suppression du cookie pour se deconnecter 
 	else if(isset($_POST["logout"])=='deconnection')
 	{
-		$sql="UPDATE connexion SET sid='' WHERE sid='".$_COOKIE['sid']."'"; 
-				$requete=mysql_query($sql);
-				header('Location:index.php');
-				exit();
+		setcookie('sid','',0);
+		header('Location:index.php');
+		exit();
 	}
+	//si connecte on recupere affiche un message de bienvenue et un bouton deconnexion
 	if($connecte)
 	{
 		$sql="SELECT prenom,nom FROM connexion WHERE sid='".$_COOKIE['sid']."'";
-				$result=mysql_query($sql);
-				$data=mysql_fetch_array($result);
+		$result=mysql_query($sql);
+		$data=mysql_fetch_array($result);
 		echo '<input type="submit" name="valider" value="Se Déconnecter" class="btn-large btn-danger pull-right" style="margin-top:15px" data-toggle="collapse" data-target=".nav-collapse">';
 		echo "<h4>Bienvenue ".$data['prenom']." ".$data['nom']."</h4>";
 		?>
 		<a>Mon compte</a>
 		<input type="hidden" name="logout" value="deconnection">	<?php
 	}
+	//sinon on affiche le formulaire de connexion
 	else
 	{
 	?>

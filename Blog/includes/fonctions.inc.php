@@ -1,19 +1,23 @@
 ﻿<?php
-function var_post($champ) {
+function var_post($champ) 
+{
 	return (isset($_POST[$champ]))? $_POST[$champ]:false;
 }
 
-function var_get($champ) {
+function var_get($champ) 
+{
 	return (isset($_GET[$champ]))? $_GET[$champ]:false;
 }
 
-function requete_notif($sql,$var,$val){
+function requete_notif($sql,$var,$val)
+{
 //possibilité de la faire en ternaire
 	if (mysql_query($sql)) $_SESSION[$var]=$val;
 	else $_SESSION[$var]='erreur';
 }
 
-function dateFR($arg){ // Traduit la date en français
+function dateFR($arg)// Traduit la date en français
+{ 
 	$jour=array("Dimanche","Lundi","Mardi","Mercredi", "Jeudi", "Vendredi", "Samedi");
 	$mois=array(" ","Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre");
 	//$lejour=date("d",$arg);

@@ -3,41 +3,46 @@ include('includes/haut.inc.php');
 include('includes/connexion.inc.php');
 include('includes/fonctions.inc.php'); 
 //var_dump($_POST);
-/************************************************************
- * Definition des constantes / tableaux et variables
- *************************************************************/
+/*Definition des constantes / tableaux et variables*/
  
 // Constantes
 define('TARGET', 'img/');    // Repertoire cible pour l'upload
-define('TARGETvgn', 'img/vignettes/');
+define('TARGETvgn', 'img/vignettes/'); // Repertoire cible pour la miniature
 define('MAX_SIZE', 1000000);    // Taille max en octets du fichier
 define('WIDTH_MAX', 1800);    // Largeur max de l'image en pixels
 define('HEIGHT_MAX', 1800);    // Hauteur max de l'image en pixels
  
 // Tableaux de donnees
 $tabExt = array('jpg','gif','png','jpeg','bmp');    // Extensions autorisees
-$infosImg = array();
+$infosImg = array(); // tableau dans lequel seroont enregistré les informations de l'image uploadé
  
 // Variables
-$extension = '';
-$message = '';
-$nomImage = '';
-$id =(int)var_get('id');
+$extension = ''; // pour enregistrer l'extension de l'image
+$message = ''; // contiendra le message de réussite ou d'echec de l'upload
+$nomImage = ''; //contiendra le nom de l'image
+$id =(int)var_get('id'); //récupere l'id de l'article lors d'une modifictaion
   
 /************************************************************
- * Creation du repertoire cible si inexistant
+ * Creation des repertoires cibles si inexistants
  *************************************************************/
-if( !is_dir(TARGET) ) {
-  if( !mkdir(TARGET, 0755) ) {
+//dossier img
+if( !is_dir(TARGET) ) 
+{
+  if( !mkdir(TARGET, 0755) ) 
+  {
     exit('Erreur : le répertoire cible ne peut-être créé !');
   }
 }
-if( !is_dir(TARGETvgn) ) {
-  if( !mkdir(TARGETvgn, 0755) ) {
+// dossier vignettes
+if( !is_dir(TARGETvgn) ) 
+{
+  if( !mkdir(TARGETvgn, 0755) ) 
+  {
     exit('Erreur : le répertoire cible ne peut-être créé !');
   }
 }
 ?>
+<!--Formlaire-->
 <form enctype="multipart/form-data" action="article.php" method="post">
 <?php
 //pour la modification
@@ -106,29 +111,33 @@ If (isset($_POST['post']))
 				            // On renomme le fichier
 				            $nomImage = $id .'.'. $extension;
 				 			$cheminImage= $_FILES['image']['tmp_name'];
-				            switch($extension){
-    case 'bmp': $imageSource = imagecreatefromwbmp($cheminImage); break;
-    case 'gif': $imageSource = imagecreatefromgif($cheminImage); break;
-    case 'jpg': $imageSource = imagecreatefromjpeg($cheminImage); break;
-    case 'png': $imageSource = imagecreatefrompng($cheminImage); break;
-    default : return "Unsupported picture type!";
+				            switch($extension)
+				            {
+							    case 'bmp': $imageSource = imagecreatefromwbmp($cheminImage); break;
+							    case 'gif': $imageSource = imagecreatefromgif($cheminImage); break;
+							    case 'jpg': $imageSource = imagecreatefromjpeg($cheminImage); break;
+							    case 'png': $imageSource = imagecreatefrompng($cheminImage); break;
+							    default : return "Unsupported picture type!";
 
-  }
+							}
 				              //$imageSource = imagecreatefromjpeg($cheminImage);
 				              $imageDestination= imagecreatetruecolor(300, 150);
-				              if($extension == "gif" or $extension == "png"){
-    imagecolortransparent($imageDestination, imagecolorallocatealpha($imageDestination, 0, 0, 0, 127));
-    imagealphablending($imageDestination, false);
-    imagesavealpha($imageDestination, true);
-  }
+				              if($extension == "gif" or $extension == "png")
+				              {
+							    imagecolortransparent($imageDestination, imagecolorallocatealpha($imageDestination, 0, 0, 0, 127));
+							    imagealphablending($imageDestination, false);
+							    imagesavealpha($imageDestination, true);
+							  }
 				              imagecopyresampled($imageDestination, $imageSource, 0, 0, 0,0, 300, 150, $infosImg[0], $infosImg[1]);
+				              //si le fichier existe on le supprime (dans le cas d'une modification)
 				              if(file_exists(TARGETvgn.$nomImage)) unlink(TARGETvgn.$nomImage);
-				              switch($extension){
-    case 'bmp': header("Content-Type: image/bmp"); imagewbmp($imageDestination, TARGETvgn.$nomImage,100); break;
-    case 'gif': header("Content-Type: image/gif");imagegif($imageDestination, TARGETvgn.$nomImage); break;
-    case 'jpg': header("Content-Type: image/jpeg");imagejpeg($imageDestination, TARGETvgn.$nomImage,100); break;
-    case 'png': header("Content-Type: image/png");imagepng($imageDestination, TARGETvgn.$nomImage,0); break;
-  }
+				              switch($extension)
+				              {
+								case 'bmp': header("Content-Type: image/bmp"); imagewbmp($imageDestination, TARGETvgn.$nomImage,100); break;
+								case 'gif': header("Content-Type: image/gif");imagegif($imageDestination, TARGETvgn.$nomImage); break;
+								case 'jpg': header("Content-Type: image/jpeg");imagejpeg($imageDestination, TARGETvgn.$nomImage,100); break;
+								case 'png': header("Content-Type: image/png");imagepng($imageDestination, TARGETvgn.$nomImage,0); break;
+							  }
 				              //$vignette=imagejpeg($imageDestination,TARGETvgn.$nomImage,100);
 				              imagedestroy($imageSource);				              
 				            // Si c'est OK, on teste l'upload
@@ -189,7 +198,8 @@ If (isset($_POST['post']))
 		<div class="input"><textarea name="texte" id="texte"><?php If (isset($data['texte'])) echo $data['texte']; ?></textarea></div> 
 			<div class="input"><textarea name="tags" id="tags"><?php If (isset($data['texte'])) echo $data['texte']; ?></textarea></div> 
 
-	</div>
+	</div> 
+	<!-- Input pour l'envoi de fichier-->
 	<div class="clearfix">
             <label for="image_a_uploader">Ajouter une image :</label>
             <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo MAX_SIZE; ?>" />
